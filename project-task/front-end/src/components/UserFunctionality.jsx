@@ -2,15 +2,12 @@ import { useState } from "react";
 
 const UserFunctionality = () => {
   const [activeForm, setActiveForm] = useState(null);
-  const [name, setName] = useState(""); 
-  const [surname, setSurname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [userId, setUserId] = useState("");
   const [updatedName, setUpdatedName] = useState(""); 
   const [updatedSurname, setUpdatedSurname] = useState("");
   const [updatedEmail, setUpdatedEmail] = useState(""); 
   const [updatedPassword, setUpdatedPassword] = useState(""); 
+  const [updatedRole, setUpdatedRole] = useState("");
 
   const handleFormOpen = (formType) => {
     setActiveForm(formType);
@@ -27,6 +24,7 @@ const UserFunctionality = () => {
     setUpdatedSurname("");
     setUpdatedEmail("");
     setUpdatedPassword("");
+    setUpdatedRole("");
   };
 
   const handleDeleteUser = async () => {
@@ -50,7 +48,7 @@ const UserFunctionality = () => {
   };
 
   const handleUpdateUser = async () => {
-    if (!userId || !updatedName || !updatedSurname || !updatedEmail || !updatedPassword) {
+    if (!userId || !updatedName || !updatedSurname || !updatedEmail || !updatedPassword || !updatedRole) {
       alert("Please fill in all fields.");
       return;
     }
@@ -65,6 +63,7 @@ const UserFunctionality = () => {
           surname: updatedSurname,
           email: updatedEmail,
           password: updatedPassword,
+          role: updatedRole,
         }),
       });
       if (response.ok) {
@@ -96,7 +95,6 @@ const UserFunctionality = () => {
         </button>
       </div>
 
-      {/* Form for Deleting a User */}
       {activeForm === "delete" && (
         <div className="border p-4 w-[300px] rounded-lg shadow-lg">
           <h2 className="text-lg font-bold">Delete User</h2>
@@ -153,6 +151,13 @@ const UserFunctionality = () => {
             className="border p-2 w-full my-2"
             value={updatedPassword}
             onChange={(e) => setUpdatedPassword(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="New Role"
+            className="border p-2 w-full my-2"
+            value={updatedRole}
+            onChange={(e) => setUpdatedRole(e.target.value)}
           />
           <button className="bg-green-500 text-white p-2 rounded w-full" onClick={handleUpdateUser}>
             Update
