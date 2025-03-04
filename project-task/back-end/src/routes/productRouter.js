@@ -4,10 +4,10 @@ import checkToken from "../middlewares/checkToken.js"
 
 const productRouter = express.Router()
 
-productRouter.post("/",productController.createProduct)
+productRouter.post("/",checkToken,productController.createProduct)
 productRouter.get("/",productController.getProducts)
 productRouter.get("/:id",productController.getProductByID)
-productRouter.put("/:id",productController.updateProduct)
-productRouter.delete("/:id",productController.deleteProduct)
+productRouter.put("/:id",checkToken,productController.updateProduct)
+productRouter.delete("/:id",checkToken,productController.deleteProduct)
 
 export default productRouter
